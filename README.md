@@ -6,3 +6,8 @@
 `$ sudo <your executable file name>`
 
 Sudo is required to write to the tty.
+
+####Troubleshooting
+1. Are the signals appearing appropriately? (Use an analyzer)
+2. Did you mix up the TXD and RXD ports?
+3. The connection can be finicky. Retry until you receive responses.
