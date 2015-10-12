@@ -15,19 +15,11 @@
 // HSU wakeup information on page 99 of User Manual on nxp.com
 void wakeup(int ttyFileDescriptor) {
     printf("Waiting for PN532 to wake up...\n");
-    unsigned char wakeupCall[2] = "\x55\x55";
-
-    write(ttyFileDescriptor, wakeupCall, sizeof(wakeupCall));
-
-    unsigned char longPreamble[14] =
-        "\x00\x00\x00\x00"
-        "\x00\x00\x00\x00"
-        "\x00\x00\x00\x00"
-        "\x00\x00";
-        //"\x41\x41\x41\x41"
-        //"\x41\x41\x41\x41"
-        //"\x41\x41\x41\x41"
-        //"\x41\x41";
+    unsigned char longPreamble[16] =
+        "\x55\x55\x00\x00\x00\x00"
+        "\x00\xFF\x04\xFC"
+        "\xD4\x14\x01\x01"
+        "\x16\x00";
     write(ttyFileDescriptor, longPreamble, sizeof(longPreamble));
 
     //sleep(0.5);
@@ -89,6 +81,9 @@ uint32_t getFirmwareVersion(int ttyFileDescriptor) {
         "\x00\x00\x00\x00";
 
     write(ttyFileDescriptor, postamble, sizeof(postamble));
+
+    // Wait for pn532 to receive the command
+    sleep(0.5);
 
     unsigned char response[1024];
     int bytesRead=0, loc=0;
