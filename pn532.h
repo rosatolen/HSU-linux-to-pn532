@@ -15,15 +15,17 @@
 // HSU wakeup information on page 99 of User Manual on nxp.com
 void wakeup(int ttyFileDescriptor) {
     printf("Waiting for PN532 to wake up...\n");
-    unsigned char longPreamble[16] =
-        "\x55\x55\x00\x00\x00\x00"
-        "\x00\xFF\x04\xFC"
-        "\xD4\x14\x01\x01"
-        "\x16\x00";
+    unsigned char longPreamble[26] =
+        "\x55\x55"
+        "\x00\x00\x00\x00"
+        "\x00\x00\x00\x00"
+        "\x00\x00\x00\x00"
+        "\x00\x00\x00\x00"
+        "\xFF\x03\xFD\xD4"
+        "\x14\x01\x17\x00";
     write(ttyFileDescriptor, longPreamble, sizeof(longPreamble));
 
-    //sleep(0.5);
-    //printf("Finished waiting.\n");
+    // Expect ACK: 00 00 FF 00 FF 00
 }
 
 // Basic HSU communication details on page 40 of User Manual on nxp.com

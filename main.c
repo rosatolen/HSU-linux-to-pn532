@@ -30,7 +30,7 @@ int main() {
 
     printf("Initializing Reader\n");
     wakeup(tty);
-    getFirmwareVersion(tty);
+ // getFirmwareVersion(tty);
 
     close(tty);
 }
