@@ -1,4 +1,5 @@
 #include <stdio.h>      // standard input / output functions
+#include <unistd.h> // for sleep
 
 #include "tty.h"
 #include "pn532.h"
@@ -30,7 +31,20 @@ int main() {
 
     printf("Initializing Reader\n");
     wakeup(tty);
- // getFirmwareVersion(tty);
+    // wait until ack sent
+    sleep(.5);
+    // set parameters (command 12)
+    // read register (command 06)
+    // write register (command 08)
+    // rfconfiguration (command 32)
+    // rfconfiguration (command 32) 2nd time
+    // rfconfiguration (command 32) 3nd time
+    // read register (command 06)
+    // write register (command 08)
+    // inAutoPoll (command 60)
+
+    // print out the ID of the nfc tag
+
 
     close(tty);
 }
